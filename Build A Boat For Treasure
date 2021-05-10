@@ -63,6 +63,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
    wait(1)
    vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
+Flux:Notification("You're no longer get kick from idling", "Okay")
 end)
 
 Tab2:Button("Rejoin", "Rejoin the game", function()
