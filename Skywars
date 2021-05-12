@@ -49,3 +49,16 @@ end)
 Tab2:Button("Lobby", "Telepot You To Lobby", function()
     game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-0.00956035405, 268, 0.159793511))
 end)
+
+
+
+local Discord = Win:Tab("Discord", "http://www.roblox.com/asset/?id=6031280882")
+Discord:Label("Discord Server")
+Discord:Button("Discord Invite Link", "Copy Discord Invite link", function()
+Flux:Notification("Copied Discord Invite Link Paste It Into Your Browser", "Alright")
+setclipboard("https://discord.gg/YJFhR2wfzA")
+end)
+Discord:Label("Press RightControl To Hide Or Show Gui")
+Discord:Button("Destroy Gui", "Destroy Kiwi X", function()
+game.CoreGui["Kiwi X"]:Destroy()
+end)
