@@ -1,5 +1,5 @@
 local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/PhengAn/Roblox-UI-Library/main/Flux")()
-local Win = Flux:Window("Kiwi X", "Skywars", Color3.fromRGB(255, 110, 48), Enum.KeyCode.LeftControl)
+local Win = Flux:Window("Kiwi X", "Skywars", Color3.fromRGB(255, 110, 48), Enum.KeyCode.RightControl)
 
 
 
