@@ -1,0 +1,118 @@
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/PhengAn/Roblox-UI-Library/main/Flux")()
+local Win = Flux:Window("Kiwi X", "Not Supported Game", Color3.fromRGB(30, 170, 165), Enum.KeyCode.RightControl)
+
+
+
+local Tab1 = Win:Tab("Main", "http://www.roblox.com/asset/?id=6023426915")
+
+
+
+Tab1:Button("Kill all", "This function may not work sometimes and you can get banned.", function()
+Flux:Notification("Killed all players successfully!", "Alright")
+end)
+
+Tab1:Label("This is just a label.")
+
+Tab1:Line()
+
+Tab1:Toggle("Auto-Farm Coins", "Automatically collects coins for you!", false, function(t)
+print(t)
+end)
+
+Tab1:Slider("Walkspeed", "Makes your faster.", 0, 100,16,function(t)
+print(t)
+end)
+
+Tab1:Dropdown("Part to aim at", {"Torso","Head","Penis"}, function(t)
+print(t)
+end)
+
+Tab1:Colorpicker("ESP Color", Color3.fromRGB(255,1,1), function(t)
+end)
+
+Tab1:Textbox("Gun Power", "This textbox changes your gun power, so you can kill everyone faster and easier.", true, function(t)
+print(t)
+end)
+
+Tab1:Bind("Kill Bind", Enum.KeyCode.Q, function()
+print("Killed a random person!")
+end)
+
+Tab1:Button("Destroy Gui", "Destroy Kiwi X Gui", function()
+game.CoreGui["Kiwi X"]:Destroy()
+end)
+
+
+
+local Tab2 = Win:Tab("Local", "http://www.roblox.com/asset/?id=6022668888")
+
+
+
+Tab2:Slider("WalkSpeed", "Set your walkspeed", 0, 100,16,function(t)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (t)
+end)
+
+Tab2:Slider("JumpPower", "Set your jumppower", 0, 100,50,function(t)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = (t)
+end)
+
+Tab2:Slider("Gravity", "Set your gravity", 0, 250,196,function(t)
+game.Workspace.Gravity = (t)
+end)
+
+Tab2:Toggle("Noclip", "Allow you to walk through object", false,  function(Bool)
+
+noclip = false
+game:GetService('RunService').Stepped:connect(function()
+local lplayer = game:GetService("Players").LocalPlayer
+	if noclip then
+		if lplayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			lplayer.Character.Head.CanCollide = false
+			lplayer.Character.Torso.CanCollide = false
+			lplayer.Character["Left Leg"].CanCollide = false
+			lplayer.Character["Right Leg"].CanCollide = false
+		else
+			lplayer.Character.Humanoid:ChangeState(11)
+		end
+	end
+end)
+if Bool then
+    noclip = not noclip
+end
+end)
+
+Tab2:Toggle("X-Ray", "Allow you to see through onject", false , function(Bool)
+local transparent = false
+function x(v)
+	if v then
+		for _,i in pairs(workspace:GetDescendants()) do
+			if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
+				i.LocalTransparencyModifier = 0.5
+			end
+		end
+	else
+		for _,i in pairs(workspace:GetDescendants()) do
+			if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
+				i.LocalTransparencyModifier = 0
+			end
+		end
+	end
+end
+	transparent = false
+	x(transparent)
+if Bool then
+    transparent = not transparent
+    x(transparent)
+end
+end)
+
+local Discord = Win:Tab("Discord", "http://www.roblox.com/asset/?id=6031280882")
+Discord:Label("Discord Server")
+Discord:Button("Discord Invite Link", "Copy Discord Invite link", function()
+Flux:Notification("Copied Discord Invite Link Paste It Into Your Browser", "Alright")
+setclipboard("https://discord.gg/YJFhR2wfzA")
+end)
+Discord:Label("Press RightControl To Hide Or Show Gui")
+Discord:Button("Destroy Gui", "Destroy Kiwi X", function()
+game.CoreGui["Kiwi X"]:Destroy()
+end)
