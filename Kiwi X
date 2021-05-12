@@ -7,36 +7,9 @@ local Tab1 = Win:Tab("Main", "http://www.roblox.com/asset/?id=6023426915")
 
 
 
-Tab1:Button("Kill all", "This function may not work sometimes and you can get banned.", function()
-Flux:Notification("Killed all players successfully!", "Alright")
-end)
-
 Tab1:Label("This is just a label.")
 
 Tab1:Line()
-
-Tab1:Toggle("Auto-Farm Coins", "Automatically collects coins for you!", false, function(t)
-print(t)
-end)
-
-Tab1:Slider("Walkspeed", "Makes your faster.", 0, 100,16,function(t)
-print(t)
-end)
-
-Tab1:Dropdown("Part to aim at", {"Torso","Head","Penis"}, function(t)
-print(t)
-end)
-
-Tab1:Colorpicker("ESP Color", Color3.fromRGB(255,1,1), function(t)
-end)
-
-Tab1:Textbox("Gun Power", "This textbox changes your gun power, so you can kill everyone faster and easier.", true, function(t)
-print(t)
-end)
-
-Tab1:Bind("Kill Bind", Enum.KeyCode.Q, function()
-print("Killed a random person!")
-end)
 
 
 
