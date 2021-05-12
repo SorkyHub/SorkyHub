@@ -38,10 +38,6 @@ Tab1:Bind("Kill Bind", Enum.KeyCode.Q, function()
 print("Killed a random person!")
 end)
 
-Tab1:Button("Destroy Gui", "Destroy Kiwi X Gui", function()
-game.CoreGui["Kiwi X"]:Destroy()
-end)
-
 
 
 local Tab2 = Win:Tab("Local", "http://www.roblox.com/asset/?id=6022668888")
@@ -104,6 +100,12 @@ if Bool then
     transparent = not transparent
     x(transparent)
 end
+end)
+
+Tab2:Textbox("Teleport To Player", "Write the Player name that you want to teleport to", true, function(t)
+local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+local pl2 = (t)
+pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
 end)
 
 local Discord = Win:Tab("Discord", "http://www.roblox.com/asset/?id=6031280882")
