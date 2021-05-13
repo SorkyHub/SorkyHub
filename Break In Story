@@ -1,0 +1,118 @@
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/PhengAn/Roblox-UI-Library/main/Flux")()
+local Win = Flux:Window("Kiwi X", "Break In Story", Color3.fromRGB(30, 170, 165), Enum.KeyCode.RightControl)
+
+
+
+local Tab1 = Win:Tab("Give Items", "http://www.roblox.com/asset/?id=6023426915")
+
+
+
+Tab1:Label("Give Items")
+Tab1:Button("Apple", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Apple")
+end)
+Tab1:Button("BloxyCola", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("BloxyCola")
+end)
+Tab1:Button("Bat", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Bat")
+end)
+Tab1:Button("Cookie", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Cookie")
+end)
+Tab1:Button("Chips", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Chips")
+end)
+Tab1:Button("Key", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Key")
+end)
+Tab1:Button("Medkit", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("MedKit")
+end)
+Tab1:Button("Plank", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("Plank")
+end)
+Tab1:Button("Teddy Bear", "", function()
+game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer("TeddyBloxpin")
+end)
+
+
+local Tab2 = Win:Tab("Teleport", "http://www.roblox.com/asset/?id=6022668888")
+
+
+
+Tab2:Button("Attic", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16, 35, -220)
+end)
+Tab2:Button("Basement", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(71, -15, -163)
+end)
+Tab2:Button("Boss Room", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-39, -287, -1480)
+end)
+Tab2:Button("House", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36, 3, -200)
+end)
+Tab2:Button("Store", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-422, 3, -121)
+end)
+Tab2:Button("Sewer", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(129, 3, -125)
+end)
+
+
+
+local Loc = Win:Tab("Local", "http://www.roblox.com/asset/?id=6022668888")
+
+
+
+Loc:Button("Befriend Cat", "Befriend with the cat", function()
+local Target = game:GetService("ReplicatedStorage").RemoteEvents.Cattery;
+Target:FireServer();
+end)
+
+Loc:Button("Kill Enemies", "", function()
+	for i,v in pairs(game.Workspace.BadGuys:GetChildren()) do
+        for i = 1, 50 do
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v,10)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v,996)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v,9)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v,8)
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(v,996)
+        end
+	end
+end)
+
+Loc:Button("Insta Heal", "", function()
+	for i = 1, 200 do
+        wait(0.0001)
+        local A_1 = "Cat"
+        local Event = game:GetService("ReplicatedStorage").RemoteEvents.Energy
+        Event:FireServer(A_1)
+	end
+end)
+
+Loc:Button("Remove Tools", "", function()
+	for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v:Destroy()
+        end
+	end
+end)
+
+Loc:Button("Open Safe", "", function()
+game.ReplicatedStorage.RemoteEvents.Safe:FireServer(game:GetService("Workspace").CodeNote.SurfaceGui.TextLabel.Text)
+end)
+
+
+
+local Discord = Win:Tab("Discord", "http://www.roblox.com/asset/?id=6031280882")
+Discord:Label("Discord Server")
+Discord:Button("Discord Invite Link", "Copy Discord Invite link", function()
+Flux:Notification("Copied Discord Invite Link Paste It Into Your Browser", "Alright")
+setclipboard("https://discord.gg/YJFhR2wfzA")
+end)
+Discord:Label("Press RightControl To Hide Or Show Gui")
+Discord:Button("Destroy Gui", "Destroy Kiwi X", function()
+game.CoreGui["Kiwi X"]:Destroy()
+end)
