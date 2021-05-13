@@ -56,22 +56,8 @@ Tab2:Slider("JumpPower", "Set your jumppower", 0, 100,50,function(t)
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = (t)
 end)
 
-Tab2:Button("Anti-AFK", "You won't get kick from idle 20 minutes anymore", function()
-local vu = game:GetService("VirtualUser")
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-   wait(1)
-   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-end)
-Flux:Notification("You're no longer get kick from idling", "Okay")
-end)
-
 Tab2:Button("Rejoin", "Rejoin the game", function()
 game:GetService("TeleportService"):Teleport(game.PlaceId, Client)
-end)
-
-Tab2:Button("Destroy Gui", "Destroy Kiwi X Gui", function()
-game.CoreGui["Kiwi X"]:Destroy()
 end)
 
 
