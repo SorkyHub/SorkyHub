@@ -7,29 +7,258 @@ local Tab1 = Win:Tab("Main", "http://www.roblox.com/asset/?id=6023426915")
 
 
 
-Tab1:Label("This is just a label.")
+Tab1:Label("Some helpful scripts")
 
-Tab1:Line()
+Tab1:Button("Alt Delete", "Hold LeftAlt and click on onject you want to delete", function()
+local Plr = game:GetService("Players").LocalPlayer
+local Mouse = Plr:GetMouse()
+
+Mouse.Button1Down:connect(function()
+if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftAlt) then return end
+if not Mouse.Target then return end
+Mouse.Target:Destroy()
+end)
+end)
+
+Tab1:Button("Btools", "Give you Btools", function()
+local speaker = game.Players.LocalPlayer
+	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 1
+	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 2
+	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 3
+	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 4
+end)
+
+Tab1:Button("Chat Spy", "Allow you to see anyone private chat", function()
+Flux:Notification("Say /e spy to On/Off", "Okay")
+enabled = true
+spyOnMyself = true
+public = false
+publicItalics = true
+privateProperties = {
+	Color = Color3.fromRGB(0,255,255); 
+	Font = Enum.Font.SourceSansBold;
+	TextSize = 18;
+}
+local StarterGui = game:GetService("StarterGui")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local saymsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+local getmsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("OnMessageDoneFiltering")
+local instance = (_G.chatSpyInstance or 0) + 1
+_G.chatSpyInstance = instance
+
+local function onChatted(p,msg)
+	if _G.chatSpyInstance == instance then
+		if p==player and msg:lower():sub(1,6)=="/e spy" then
+			enabled = not enabled
+			wait(0.3)
+			privateProperties.Text = "{SPY "..(enabled and "EN" or "DIS").."ABLED}"
+			StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+		elseif enabled and (spyOnMyself==true or p~=player) then
+			msg = msg:gsub("[\n\r]",''):gsub("\t",' '):gsub("[ ]+",' ')
+			local hidden = true
+			local conn = getmsg.OnClientEvent:Connect(function(packet,channel)
+				if packet.SpeakerUserId==p.UserId and packet.Message==msg:sub(#msg-#packet.Message+1) and (channel=="All" or (channel=="Team" and public==false and Players[packet.FromSpeaker].Team==player.Team)) then
+					hidden = false
+				end
+			end)
+			wait(1)
+			conn:Disconnect()
+			if hidden and enabled then
+				if public then
+					saymsg:FireServer((publicItalics and "/me " or '').."{SPY} [".. p.Name .."]: "..msg,"All")
+				else
+					privateProperties.Text = "{SPY} [".. p.Name .."]: "..msg
+					StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+				end
+			end
+		end
+	end
+end
+
+for _,p in ipairs(Players:GetPlayers()) do
+	p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+end
+Players.PlayerAdded:Connect(function(p)
+	p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+end)
+privateProperties.Text = "{SPY "..(enabled and "EN" or "DIS").."ABLED}"
+StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+local chatFrame = player.PlayerGui.Chat.Frame
+chatFrame.ChatChannelParentFrame.Visible = true
+chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+end)
+
+local Hub = Win:Tab("Script Hub", "http://www.roblox.com/asset/?id=6035053298")
+Hub:Button("Alpha X", "Sharkbite", function()
+getgenv().http_request = http_request or request or (http and http.request) or syn.request 
+repeat until http_request
+loadstring(http_request({Url="https://raw.githubusercontent.com/alphaalt0409/WEIRDAPPLEBEEPANEL/main/weirdapplebee.lua",Method="GET"}).Body)()
+end)
+Hub:Button("Duck Hub", "", function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/NougatBitz/DuckHub/master/Main.lua'))()
+end)
+Hub:Button("Owl Hub", "", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ZinityDrops/OwlHubLink/master/OwlHubBack.lua"))()
+end)
+
+local Local = Win:Tab("Local", "http://www.roblox.com/asset/?id=6022668888")
 
 
 
-local Tab2 = Win:Tab("Local", "http://www.roblox.com/asset/?id=6022668888")
-
-
-
-Tab2:Slider("WalkSpeed", "Set your walkspeed", 0, 100,16,function(t)
+Local:Slider("WalkSpeed", "Set your walkspeed", 0, 100,16,function(t)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (t)
 end)
 
-Tab2:Slider("JumpPower", "Set your jumppower", 0, 100,50,function(t)
+Local:Slider("JumpPower", "Set your jumppower", 0, 100,50,function(t)
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = (t)
 end)
 
-Tab2:Slider("Gravity", "Set your gravity", 0, 250,196,function(t)
+Local:Slider("Gravity", "Set your gravity", 0, 250,196,function(t)
 game.Workspace.Gravity = (t)
 end)
 
-Tab2:Toggle("Noclip", "Allow you to walk through object", false,  function(Bool)
+Local:Button("Rejoin", "Rejoin your game in same server", function()
+Flux:Notification("Rejoining...", "Okay")
+game:GetService("TeleportService"):Teleport(game.PlaceId, Client)
+end)
+
+Local:Button("Serverhop", "Rejoin your game in different server", function()
+Flux:Notification("Serverhoping... Please wait for a while", "Okay")
+local PlaceID = game.PlaceId
+local AllIDs = {}
+local foundAnything = ""
+local actualHour = os.date("!*t").hour
+local Deleted = false
+local File = pcall(function()
+    AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+end)
+if not File then
+    table.insert(AllIDs, actualHour)
+    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+end
+function TPReturner()
+    local Site;
+    if foundAnything == "" then
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+    else
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+    end
+    local ID = ""
+    if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+        foundAnything = Site.nextPageCursor
+    end
+    local num = 0;
+    for i,v in pairs(Site.data) do
+        local Possible = true
+        ID = tostring(v.id)
+        if tonumber(v.maxPlayers) > tonumber(v.playing) then
+            for _,Existing in pairs(AllIDs) do
+                if num ~= 0 then
+                    if ID == tostring(Existing) then
+                        Possible = false
+                    end
+                else
+                    if tonumber(actualHour) ~= tonumber(Existing) then
+                        local delFile = pcall(function()
+                            delfile("NotSameServers.json")
+                            AllIDs = {}
+                            table.insert(AllIDs, actualHour)
+                        end)
+                    end
+                end
+                num = num + 1
+            end
+            if Possible == true then
+                table.insert(AllIDs, ID)
+                wait()
+                pcall(function()
+                    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                    wait()
+                    game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                end)
+                wait(4)
+            end
+        end
+    end
+end
+
+function Teleport()
+    while wait() do
+        pcall(function()
+            TPReturner()
+            if foundAnything ~= "" then
+                TPReturner()
+            end
+        end)
+    end
+end
+Teleport()
+end)
+
+Local:Button("Low Server", "Rejoin your game in the server with low player", function()
+Flux:Notification("Finding Low Server, Please wait for a while", "Okay")
+getgenv().AutoTeleport = true
+getgenv().DontTeleportTheSameNumber = false
+
+if not game:IsLoaded() then
+    print("Game is loading waiting... | Kiwi X Empty Server Finder")
+    repeat
+        wait()
+    until game:IsLoaded()
+    end
+local maxplayers = math.huge
+local serversmaxplayer;
+local goodserver;
+local gamelink = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+function serversearch()
+    for _, v in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(gamelink)).data) do
+        if type(v) == "table" and maxplayers > v.playing then
+            serversmaxplayer = v.maxPlayers
+            maxplayers = v.playing
+            goodserver = v.id
+        end
+    end
+    print("Currently checking the servers with max this number of players : " .. maxplayers .. " | Kiwi X Empty Server Finder")
+end
+function getservers()
+    serversearch()
+    for i,v in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(gamelink))) do
+        if i == "nextPageCursor" then
+            if gamelink:find("&cursor=") then
+                local a = gamelink:find("&cursor=")
+                local b = gamelink:sub(a)
+                gamelink = gamelink:gsub(b, "")
+            end
+            gamelink = gamelink .. "&cursor=" ..v
+            getservers()
+        end
+    end
+end
+getservers()
+    print("All of the servers are searched") 
+	print("Server : " .. goodserver .. " Players : " .. maxplayers .. "/" .. serversmaxplayer .. " | Kiwi X Empty Server Finder")
+    if AutoTeleport then
+        if DontTeleportTheSameNumber then 
+            if #game:GetService("Players"):GetPlayers() - 1 == maxplayers then
+                return warn("It has same number of players (except you)")
+            elseif goodserver == game.JobId then
+                return warn("Your current server is the most empty server atm") 
+            end
+        end
+        print("AutoTeleport is enabled. Teleporting to : " .. goodserver)
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, goodserver)
+    end
+    Flux:Notification("Teleporting...", "Okay")
+end)
+
+Local:Textbox("Teleport To Player", "Write the Player name that you want to teleport to", true, function(t)
+local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+local pl2 = (t)
+pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
+end)
+
+Local:Toggle("Noclip", "Allow you to walk through object", false,  function(Bool)
 
 noclip = false
 game:GetService('RunService').Stepped:connect(function()
@@ -50,7 +279,7 @@ if Bool then
 end
 end)
 
-Tab2:Toggle("X-Ray", "Allow you to see through onject", false , function(Bool)
+Local:Toggle("X-Ray", "Allow you to see through onject", false , function(Bool)
 local transparent = false
 function x(v)
 	if v then
@@ -75,11 +304,7 @@ if Bool then
 end
 end)
 
-Tab2:Textbox("Teleport To Player", "Write the Player name that you want to teleport to", true, function(t)
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local pl2 = (t)
-pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
-end)
+
 
 local Discord = Win:Tab("Discord", "http://www.roblox.com/asset/?id=6031280882")
 Discord:Label("Discord Server")
