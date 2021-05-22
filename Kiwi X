@@ -21,11 +21,7 @@ end)
 end)
 
 Tab1:Button("Btools", "Give you Btools", function()
-local speaker = game.Players.LocalPlayer
-	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 1
-	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 2
-	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 3
-	Instance.new("HopperBin", speaker:FindFirstChildOfClass("Backpack")).BinType = 4
+loadstring(game:HttpGet('https://raw.githubusercontent.com/PhengAn/Roblox-Scripts/main/Btools'))()
 end)
 
 Tab1:Button("Chat Spy", "Allow you to see anyone private chat", function()
