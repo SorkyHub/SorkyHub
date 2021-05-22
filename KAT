@@ -1,0 +1,57 @@
+
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/PhengAn/Roblox-UI-Library/main/Flux")()
+local Win = Flux:Window("Kiwi X", "KAT", Color3.fromRGB(30, 170, 165), Enum.KeyCode.RightControl)
+
+
+
+local Tab1 = Win:Tab("Main", "http://www.roblox.com/asset/?id=6023426915")
+
+
+
+Tab1:Label("Item Mod")
+Tab1:Button("Remove Gun Recoil", "Remove Gun Delay", function()
+game.Players.LocalPlayer.Character:BreakJoints()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/PhengAn/Roblox-Scripts/main/KAT%20Gun%20Recoil'),true))()
+end)
+
+Tab1:Button("Remove Knife Delay", "You're no longer hold knife to throw", function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/PhengAn/Roblox-Scripts/main/KAT%20Knife%20Delay'),true))()
+end)
+
+Tab1:Button("Silent Aim", "", function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/PhengAn/Roblox-Scripts/main/KAT%20Silent%20Aim'),true))()
+end)
+
+Tab1:Button("Spam Knife", "Hold your knife", function()
+Flux:Notification("Hold Your Knife", "Alright")
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/PhengAn/Roblox-Scripts/main/KAT%20Spam%20Knife'),true))()
+end)
+
+
+
+
+
+local Local = Win:Tab("Local", "http://www.roblox.com/asset/?id=6022668888")
+
+
+
+Local:Button("ESP", "", function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/PhengAn/Roblox-Scripts/main/ESP'),true))()
+end)
+
+Local:Button("Rejoin", "", function()
+game:GetService("TeleportService"):Teleport(game.PlaceId, Client)
+end)
+
+
+
+local Discord = Win:Tab("Discord", "http://www.roblox.com/asset/?id=6031280882")
+Discord:Label("Discord Server")
+Discord:Button("Discord Invite Link", "Copy Discord Invite link", function()
+Flux:Notification("Copied Discord Invite Link Paste It Into Your Browser", "Alright")
+setclipboard("https://discord.gg/YJFhR2wfzA")
+end)
+Discord:Label("Press RightControl To Hide Or Show Gui")
+Discord:Button("Destroy Gui", "Destroy Kiwi X", function()
+game.CoreGui["Kiwi X"]:Destroy()
+end)
